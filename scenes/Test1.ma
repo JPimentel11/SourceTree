@@ -1,6 +1,6 @@
 //Maya ASCII 2016 scene
 //Name: Test1.ma
-//Last modified: Wed, Aug 26, 2015 03:08:40 PM
+//Last modified: Wed, Aug 26, 2015 03:10:26 PM
 //Codeset: 1252
 requires maya "2016";
 requires -nodeType "mentalrayFramebuffer" -nodeType "mentalrayOptions" -nodeType "mentalrayGlobals"
@@ -75,8 +75,34 @@ createNode camera -s -n "sideShape" -p "side";
 	setAttr ".o" yes;
 createNode transform -n "pSphere1";
 	rename -uid "EDB6BAA8-475F-E8B1-D393-978B60030C2C";
+	setAttr ".t" -type "double3" 0 0 6.9813866135725702 ;
 createNode mesh -n "pSphereShape1" -p "pSphere1";
 	rename -uid "D9AA5F30-4623-02CE-D7CC-B591F09353AB";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+createNode transform -n "pCube1";
+	rename -uid "B18C08DD-49C4-C12E-A8CA-879572C28D92";
+	setAttr ".t" -type "double3" 0 0 -3.5527136788005009e-015 ;
+createNode mesh -n "pCubeShape1" -p "pCube1";
+	rename -uid "458F6CDD-4276-7954-69AA-CEB182FE9361";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+createNode transform -n "pCube2";
+	rename -uid "80708326-41C7-E1A3-04CB-799EB88E62A3";
+createNode mesh -n "pCubeShape2" -p "pCube2";
+	rename -uid "B261FDED-48BB-0E3A-AF98-C69D7CB64526";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -426,6 +452,12 @@ createNode script -n "sceneConfigurationScriptNode";
 	rename -uid "13066BFD-4F00-35F5-63B2-3C93E0A261BB";
 	setAttr ".b" -type "string" "playbackOptions -min 1 -max 120 -ast 1 -aet 200 ";
 	setAttr ".st" 6;
+createNode polyCube -n "polyCube1";
+	rename -uid "DEFBB311-465C-ACA1-EB7A-77938B4EE009";
+	setAttr ".cuv" 4;
+createNode polyCube -n "polyCube2";
+	rename -uid "467F0371-402A-FADA-C50C-9C9EB427951F";
+	setAttr ".cuv" 4;
 select -ne :time1;
 	setAttr ".o" 1;
 	setAttr ".unw" 1;
@@ -444,6 +476,7 @@ select -ne :postProcessList1;
 	setAttr -s 2 ".p";
 select -ne :defaultRenderingList1;
 select -ne :initialShadingGroup;
+	setAttr -s 3 ".dsm";
 	setAttr ".ro" yes;
 select -ne :initialParticleSE;
 	setAttr ".ro" yes;
@@ -453,6 +486,8 @@ select -ne :hardwareRenderGlobals;
 	setAttr ".ctrs" 256;
 	setAttr ".btrs" 512;
 connectAttr "polySphere1.out" "pSphereShape1.i";
+connectAttr "polyCube1.out" "pCubeShape1.i";
+connectAttr "polyCube2.out" "pCubeShape2.i";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
@@ -466,4 +501,6 @@ connectAttr ":miDefaultOptions.msg" ":mentalrayGlobals.opt";
 connectAttr ":miDefaultFramebuffer.msg" ":mentalrayGlobals.fb";
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
 connectAttr "pSphereShape1.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape1.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape2.iog" ":initialShadingGroup.dsm" -na;
 // End of Test1.ma
