@@ -1,6 +1,6 @@
 //Maya ASCII 2016 scene
 //Name: Cargpship1.ma
-//Last modified: Mon, Aug 31, 2015 12:48:44 PM
+//Last modified: Mon, Aug 31, 2015 12:49:28 PM
 //Codeset: 1252
 requires maya "2016";
 requires -nodeType "mentalrayFramebuffer" -nodeType "mentalrayOptions" -nodeType "mentalrayGlobals"
